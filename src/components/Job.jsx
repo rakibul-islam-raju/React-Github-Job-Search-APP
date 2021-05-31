@@ -23,10 +23,7 @@ function Job({ job }) {
                                         {job.location}
                                     </span>
                                 </div>
-                                {/* <ReactMarkdown className="mt-2" children={job.how_to_apply} /> */}
-                                <ReactMarkdown className="mt-3">
-                                    <span>{job.how_to_apply}</span>
-                                </ReactMarkdown>
+                                <ReactMarkdown className="mt-2" children={job.how_to_apply} />
                                 <div className="details">
                                     <button
                                         onClick={() => setOpen((prevOpen) => !prevOpen)}
@@ -36,9 +33,10 @@ function Job({ job }) {
                                         {open ? 'Hide Details' : 'View Details'}
                                     </button>
                                     {open && (
-                                        <ReactMarkdown className="mt-3">
-                                            <span>{job.description}</span>
-                                        </ReactMarkdown>
+                                        <ReactMarkdown
+                                            className="mt-2"
+                                            children={job.description}
+                                        />
                                     )}
                                 </div>
                             </div>

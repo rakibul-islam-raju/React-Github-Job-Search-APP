@@ -17,6 +17,7 @@
     "jest": true
   },
   "rules": {
+    "react/no-children-prop": 0,
     "jsx-a11y/mouse-events-have-key-events": 0,
     "jsx-a11y/no-onchange": 0,
     "react/jsx-no-bind": 0,
