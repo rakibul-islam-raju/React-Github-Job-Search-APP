@@ -10,39 +10,52 @@ function App() {
 
     const { jobs, loading, error, hasNextPage } = useFetchJobs(params, page);
 
-    function handleParamChange(e){
-        const param = e.target.name
-        const value = e.target.value
-        setPage(1)
-        setParams(prevParams => {
-            return { ...params, [param]: value }
-        })
-    }
-
-    const loadingMarkup = () => {
-        <div class="spinner-border text-primary" role="status">
-            <span class="visually-hidden"></span>
-        </div>
+    function handleParamChange(e) {
+        const param = e.target.name;
+        const { value } = e.target;
+        setPage(1);
+        // eslint-disable-next-line no-unused-vars
+        setParams((prevParams) => ({ ...params, [param]: value }));
     }
 
     return (
         <div className="App">
             <div className="container">
                 <h2 className="py-2">Github Jobs</h2>
-                {loading && loadingMarkup}
-                {error && <div class="alert alert-danger" role="alert">
-                Error. Something went wrong. Please try again...
-                </div>}
 
-                {jobs > 0 ? <SearchJob params={params} onParamChange={handleParamChange} /> : null}
+                {error && (
+                    <div className="alert alert-danger" role="alert">
+                        Error. Something went wrong. Please try again.
+                        <br />
+                    </div>
+                )}
 
-                {jobs > 0 ? <JobsPagination page={page} setPage={setPage} hasNextPage={hasNextPage}/> : null}
+                {/* Serch form */}
+                {jobs.length > 0 ? (
+                    <SearchJob params={params} onParamChange={handleParamChange} />
+                ) : null}
+
+                {/* pagination */}
+                {jobs.length > 0 ? (
+                    <JobsPagination page={page} setPage={setPage} hasNextPage={hasNextPage} />
+                ) : null}
+
+                {/* Loding markup */}
+                {loading === true ? (
+                    <div className="text-center">
+                        <div className="spinner-border text-primary" role="status">
+                            <span className="visually-hidden" />
+                        </div>
+                    </div>
+                ) : null}
+
+                {/* Job list */}
                 <div className="">
-                    { jobs.length > 0 ? jobs.map(job => (
-                        <Job key={job.id} job={job} />
-                    )) : null}
+                    {jobs.length > 0 ? jobs.map((job) => <Job key={job.id} job={job} />) : null}
                 </div>
-                {jobs > 0 ? <JobsPagination page={page} setPage={setPage} hasNextPage={hasNextPage}/> : null}
+                {jobs.length > 0 ? (
+                    <JobsPagination page={page} setPage={setPage} hasNextPage={hasNextPage} />
+                ) : null}
             </div>
         </div>
     );
